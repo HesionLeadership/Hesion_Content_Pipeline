@@ -1,5 +1,9 @@
 # Hesion Content Pipeline
 
+**Making our work transparent.** This pipeline is publicly documented to reflect Hesion's commitment to showing how we think and operate.
+
+**Automated discovery pipeline for leadership-relevant news and research.**
+
 **Automated discovery pipeline for leadership-relevant news and research.**
 
 An AI-powered system that discovers fresh stories from business, tech, and organizational psychology sources, analyzes them for leadership insights, and outputs draft posts for Hesion's LinkedIn content strategy.
