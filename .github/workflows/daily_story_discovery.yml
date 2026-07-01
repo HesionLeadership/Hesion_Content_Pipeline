@@ -1,0 +1,43 @@
+name: Daily Story Discovery
+
+on:
+  schedule:
+    # Run every day at 8am UTC (3am ET)
+    - cron: '0 8 * * *'
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  discover_stories:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run story discovery
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NYT_API_KEY: ${{ secrets.NYT_API_KEY }}
+          CROSSREF_EMAIL: ${{ secrets.CROSSREF_EMAIL }}
+        run: python src/story_discovery.py
+
+      - name: Commit and push new stories
+        run: |
+          git config --global user.name "Hesion Bot"
+          git config --global user.email "bot@hesionleadership.com"
+          git add stories/
+          git commit -m "Daily story discovery - $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "No new stories to commit"
+          git push
+
+      - name: Log completion
+        run: echo "Story discovery completed at $(date -u +'%Y-%m-%d %H:%M UTC')"
