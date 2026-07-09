@@ -219,9 +219,14 @@ def fetch_nyt_most_popular():
 
 def fetch_crossref_journals():
     """Fetch org psych research from CrossRef API."""
+    from datetime import timedelta
+    
     all_stories = []
     
     print("\n📚 Fetching from CrossRef (org psych journals)...")
+    
+    # Calculate date from 7 days ago
+    one_week_ago = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
     
     # Search terms for org psych research
     search_terms = [
@@ -239,8 +244,8 @@ def fetch_crossref_journals():
                 "query": term,
                 "order": "desc",
                 "sort": "published",
-                "rows": 2,  # Just 2 per term to avoid overload
-                "mailto": CROSSREF_EMAIL
+                "rows": 2,
+                "mailto": CROSSREF_EMAIL,
                 "from-pub-date": one_week_ago,  # Always pulls past 7 days
             }
             
