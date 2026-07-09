@@ -241,6 +241,7 @@ def fetch_crossref_journals():
                 "sort": "published",
                 "rows": 2,  # Just 2 per term to avoid overload
                 "mailto": CROSSREF_EMAIL
+                "from-pub-date": one_week_ago,  # Always pulls past 7 days
             }
             
             response = requests.get(url, params=params, timeout=10)
