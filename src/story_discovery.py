@@ -143,7 +143,7 @@ def fetch_rss_stories():
             feed = feedparser.parse(feed_url)
             
             # Get top 5 most recent entries from each feed
-            for entry in feed.entries[:5]:
+            for entry in feed.entries[:20]:
                 story = {
                     "title": entry.get("title", "No title"),
                     "link": entry.get("link", ""),
@@ -153,7 +153,7 @@ def fetch_rss_stories():
                 }
                 all_stories.append(story)
             
-            print(f"✓ Got {len(feed.entries[:5])} stories")
+            print(f"✓ Got {len(feed.entries[:20])} stories")
         except Exception as e:
             print(f"✗ Error: {e}")
     
