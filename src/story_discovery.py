@@ -25,21 +25,27 @@ client = Anthropic()
 
 # RSS Feed URLs - business & leadership focused (no political news)
 RSS_FEEDS = {
-    # Business & Leadership
-    "HBR": "https://feeds.hbr.org/harvardbusinessreview",
-    "Reuters Finance": "https://feeds.reuters.com/finance",
-    "Reuters Technology": "https://feeds.reuters.com/technology",
-    "Reuters Business": "https://feeds.reuters.com/business",
-    "WSJ Business": "https://feeds.wsj.com/xml/rss/3_7085.xml",
+    # Business & Leadership (verified working)
+    "HBR": "http://feeds.hbr.org/harvardbusiness",
     "Bloomberg": "https://feeds.bloomberg.com/markets/news.rss",
-    "CNBC": "https://feeds.cnbc.com/id/100003114/device/rss/rss.html",
+    "CNBC Business": "https://www.cnbc.com/id/10001147/device/rss/rss.html",
+    "CNBC CEO": "https://www.cnbc.com/id/19206666/device/rss/rss.html",
+    "NYT Business RSS": "https://feeds.nytimes.com/services/xml/rss/nyt/Business.xml",
     "USA Today": "https://www.usatoday.com/money/usaedition.xml",
     "BBC Business": "https://www.bbc.com/news/business/rss.xml",
-    "NYT Business RSS": "https://feeds.nytimes.com/services/xml/rss/nyt/Business.xml",
     
-    # Tech & Culture (leadership angles abound)
+    # Google News workarounds (for sources that killed their RSS)
+    "Reuters Business via Google": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/business&ceid=US:en&hl=en-US&gl=US",
+    "Reuters Tech via Google": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/technology&ceid=US:en&hl=en-US&gl=US",
+    "Reuters Finance via Google": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/markets&ceid=US:en&hl=en-US&gl=US",
+    "WSJ via Google": "https://news.google.com/rss/search?q=when:24h+allinurl:wsj.com&ceid=US:en&hl=en-US&gl=US",
+    
+    # Tech & Culture
     "TechCrunch": "https://techcrunch.com/feed/",
     "Hacker News": "https://news.ycombinator.com/rss",
+    
+    # Leadership & Management
+    "Fortune": "https://fortune.com/feed/fortune-feeds/?id=3230629",
 }
 
 # API Keys from .env
