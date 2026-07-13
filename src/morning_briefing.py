@@ -15,9 +15,8 @@ from dotenv import load_dotenv
 load_dotenv()
 client = Anthropic()
 
-STORIES_DIR = Path("stories")
-BRIEFINGS_DIR = Path("briefings")
-BRIEFINGS_DIR.mkdir(exist_ok=True)
+STORIES_DIR = Path("reports")
+BRIEFINGS_DIR = Path("reports")
 
 def parse_story_markdown(filepath):
     """Extract key fields from a story markdown file."""
