@@ -32,10 +32,9 @@ RSS_FEEDS = {
     "CNBC CEO": "https://www.cnbc.com/id/19206666/device/rss/rss.html",
     "NYT Business RSS": "https://feeds.nytimes.com/services/xml/rss/nyt/Business.xml",
     "BBC Business": "https://www.bbc.com/news/business/rss.xml",
-    "MIT Sloan": "https://mitsloan.mit.edu/feed",
+    "MIT Sloan Review": "https://feeds.feedburner.com/mitsmr",
     "Fast Company": "https://www.fastcompany.com/latest/rss",
     "Inc": "https://www.inc.com/rss",
-    "SHRM": "https://www.shrm.org/rss",
     
     # Google News workarounds (for sources that killed their RSS)
     "Reuters via Google": "https://news.google.com/rss/search?q=site:reuters.com+when:3d&hl=en-US&gl=US&ceid=US:en",
