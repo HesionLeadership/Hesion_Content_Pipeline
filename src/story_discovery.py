@@ -117,10 +117,14 @@ Source: {source}
 Please provide ONLY a JSON response (no other text, no markdown, no backticks) with these exact fields:
 {{
   "summary": "1-2 sentence summary of the story",
-  "org_psych_angle": "The organizational psychology or leadership insight (1-2 sentences). If no clear angle exists, say 'No clear angle.'",
+  "org_psych_angle": "The organizational psychology insight (1-2 sentences). If no clear angle exists, say 'No clear angle.'",
+  "leadership_lesson": "What is the leadership lesson here? Frame it as a practical takeaway for CHROs and COOs. If no clear lesson exists, say 'No clear lesson.'",
   "strength_score": <number 1-10 where 10 = perfect org psych fit, 1 = no relevance>,
-  "reasoning": "Brief explanation of why this score"
+  "reasoning": "Brief explanation of why this score",
+  "research_keywords": ["keyword1", "keyword2", "keyword3"]
 }}
+
+For research_keywords, suggest 2-3 academic search terms that would find peer-reviewed research supporting or contradicting this story's leadership angle. Use terms an organizational psychologist would search for (e.g., "procedural justice", "psychological safety", "transformational leadership").
 
 Be critical. Only score 6+ if there's a genuine, non-forced organizational psychology connection.
 """
