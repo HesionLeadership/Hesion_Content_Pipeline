@@ -31,6 +31,11 @@ jobs:
           CROSSREF_EMAIL: ${{ secrets.CROSSREF_EMAIL }}
         run: python src/story_discovery.py
 
+      - name: Log story themes
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python src/theme_logger.py
+
       - name: Generate morning briefing
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -41,7 +46,7 @@ jobs:
         run: |
           git config --global user.name "Hesion Bot"
           git config --global user.email "bot@hesionleadership.com"
-          git add stories/ briefings/
+          git add stories/ briefings/ themes/
           git commit -m "Daily story discovery - $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "No new stories to commit"
           git push
 
