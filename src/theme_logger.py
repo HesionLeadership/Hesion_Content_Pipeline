@@ -15,9 +15,8 @@ from dotenv import load_dotenv
 load_dotenv()
 client = Anthropic()
 
-STORIES_DIR = Path("stories")
-THEMES_DIR = Path("themes")
-THEMES_DIR.mkdir(exist_ok=True)
+STORIES_DIR = Path("reports")
+THEMES_DIR = Path("reports")
 THEME_LOG_PATH = THEMES_DIR / "theme_log.json"
 
 def load_theme_log():
