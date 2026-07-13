@@ -19,12 +19,14 @@ STORIES_DIR = Path("reports")
 THEMES_DIR = Path("reports")
 THEME_LOG_PATH = THEMES_DIR / f"THEMES_{datetime.now().strftime('%Y-%m-%d')}.json"
 
-def load_theme_log():
-    """Load existing theme log or create empty one."""
-    if THEME_LOG_PATH.exists():
-        with open(THEME_LOG_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {"entries": []}
+ddef load_theme_log():
+    """Load all existing theme logs and merge them."""
+    combined = {"entries": []}
+    for f in THEMES_DIR.glob("THEMES_*.json"):
+        with open(f, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+            combined["entries"].extend(data.get("entries", []))
+    return combined
 
 def save_theme_log(log):
     """Save theme log to disk."""
