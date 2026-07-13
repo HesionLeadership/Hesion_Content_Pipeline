@@ -306,8 +306,65 @@ def fetch_crossref_journals():
 # SAVE STORY AS MARKDOWN
 # ============================================================================
 
+def find_supporting_research(keywords):
+    """Search CrossRef for research matching story keywords."""
+    from datetime import timedelta
+    
+    research_results = []
+    
+    for keyword in keywords[:3]:  # Max 3 keywords
+        try:
+            url = "https://api.crossref.org/v1/works"
+            one_year_ago = (datetime.now() - timedelta(days=365)).strftime("%Y-%m-%d")
+            params = {
+                "query": keyword,
+                "order": "desc",
+                "sort": "relevance",
+                "rows": 2,
+                "mailto": CROSSREF_EMAIL,
+                "from-pub-date": one_year_ago,
+            }
+            
+            response = requests.get(url, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            
+            for item in data.get("message", {}).get("items", []):
+                title = item.get("title", ["No title"])[0] if isinstance(item.get("title"), list) else item.get("title", "No title")
+                journal = item.get("container-title", ["Unknown"])[0] if isinstance(item.get("container-title"), list) else "Unknown"
+                doi = item.get("DOI", "N/A")
+                url_link = item.get("URL", "")
+                
+                research_results.append({
+                    "title": title,
+                    "journal": journal,
+                    "doi": doi,
+                    "url": url_link,
+                    "search_term": keyword,
+                })
+        except Exception as e:
+            print(f"    ⚠️ Research search error for '{keyword}': {e}")
+    
+    return research_results
+
 def save_story_markdown(story, enrichment, filepath):
-    """Save story + enrichment as markdown file."""
+    """Save story + enrichment + supporting research as markdown file."""
+    
+    # Find supporting research based on Claude's suggested keywords
+    research_keywords = enrichment.get('research_keywords', [])
+    research = []
+    if research_keywords:
+        print(f"    🔍 Searching for supporting research: {research_keywords}")
+        research = find_supporting_research(research_keywords)
+    
+    # Build research section
+    research_section = ""
+    if research:
+        research_section = "\n## Supporting Research\n"
+        for r in research:
+            research_section += f"- **{r['title']}** — {r['journal']}. [DOI: {r['doi']}]({r['url']}) *(Search: {r['search_term']})*\n"
+    else:
+        research_section = "\n## Supporting Research\nNo matching research found.\n"
     
     markdown_content = f"""# {story['title']}
 
@@ -321,9 +378,12 @@ def save_story_markdown(story, enrichment, filepath):
 ## Organizational Psychology Angle
 {enrichment['org_psych_angle']}
 
+## Leadership Lesson
+{enrichment.get('leadership_lesson', 'No lesson identified.')}
+
 ## Strength Score
 **{enrichment['strength_score']}/10** — {enrichment['reasoning']}
-
+{research_section}
 ## Original Story Summary
 {story['summary']}
 
