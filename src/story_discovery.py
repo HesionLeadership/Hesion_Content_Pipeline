@@ -57,7 +57,7 @@ NYT_API_KEY = os.getenv("NYT_API_KEY")
 CROSSREF_EMAIL = os.getenv("CROSSREF_EMAIL")
 
 # Paths
-STORIES_DIR = Path("stories")
+STORIES_DIR = Path("reports")
 STORIES_DIR.mkdir(exist_ok=True)
 
 # ============================================================================
