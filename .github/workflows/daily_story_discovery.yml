@@ -46,7 +46,7 @@ jobs:
         run: |
           git config --global user.name "Hesion Bot"
           git config --global user.email "bot@hesionleadership.com"
-          git add stories/ briefings/ themes/
+          git add reports/
           git commit -m "Daily story discovery - $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "No new stories to commit"
           git push
 
