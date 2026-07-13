@@ -17,7 +17,7 @@ client = Anthropic()
 
 STORIES_DIR = Path("reports")
 THEMES_DIR = Path("reports")
-THEME_LOG_PATH = THEMES_DIR / "theme_log.json"
+THEME_LOG_PATH = THEMES_DIR / f"THEMES_{datetime.now().strftime('%Y-%m-%d')}.json"
 
 def load_theme_log():
     """Load existing theme log or create empty one."""
