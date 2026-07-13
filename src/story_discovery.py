@@ -31,12 +31,18 @@ RSS_FEEDS = {
     "CNBC Business": "https://www.cnbc.com/id/10001147/device/rss/rss.html",
     "CNBC CEO": "https://www.cnbc.com/id/19206666/device/rss/rss.html",
     "NYT Business RSS": "https://feeds.nytimes.com/services/xml/rss/nyt/Business.xml",
-    "USA Today": "https://www.usatoday.com/money/usaedition.xml",
     "BBC Business": "https://www.bbc.com/news/business/rss.xml",
+    "MIT Sloan": "https://mitsloan.mit.edu/feed"
+    "Fast Company": "https://www.fastcompany.com/rss"
+    "Inc": "https://www.inc.com/rss"
+    "SHRM": https://www.shrm.org/rss
     
     # Google News workarounds (for sources that killed their RSS)
-    "Reuters via Google": "https://news.google.com/rss/search?q=when:72h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US",
-    "WSJ via Google": "https://news.google.com/rss/search?q=when:72h+allinurl:wsj.com&ceid=US:en&hl=en-US&gl=US",
+    "Reuters via Google": "https://news.google.com/rss/search?q=site:reuters.com+when:3d&hl=en-US&gl=US&ceid=US:en",
+    "WSJ via Google": "https://news.google.com/rss/search?q=site:wsj.com+when:3d&hl=en-US&gl=US&ceid=US:en",
+    "https://news.google.com/rss/search?q=CEO+site:reuters.com+when:7d&hl=en-US&gl=US&ceid=US:en"
+    "https://news.google.com/rss/search?q=management+site:reuters.com+when:7d&hl=en-US&gl=US&ceid=US:en"
+    "https://news.google.com/rss/search?q=leadership+site:reuters.com+when:7d&hl=en-US&gl=US&ceid=US:en"
     
     # Tech & Culture
     "TechCrunch": "https://techcrunch.com/feed/",
@@ -70,6 +76,26 @@ def story_exists(filename_base):
     """Check if story markdown already exists (avoid duplicates)."""
     filepath = STORIES_DIR / f"{filename_base}.md"
     return filepath.exists()
+
+def prefilter(story):
+    keywords = [
+        "leadership",
+        "manager",
+        "CEO",
+        "culture",
+        "employee",
+        "team",
+        "workplace",
+        "organization",
+        "psychology",
+        "AI",
+    ]
+
+    text = (
+        story["title"] + " " + story["summary"]
+    ).lower()
+
+    return any(k in text for k in keywords)
 
 def get_claude_enrichment(story_text, source):
     """
@@ -147,7 +173,7 @@ def fetch_rss_stories():
             feed = feedparser.parse(feed_url)
             
             # Get top 5 most recent entries from each feed
-            for entry in feed.entries[:20]:
+            for entry in feed.entries[:10]:
                 story = {
                     "title": entry.get("title", "No title"),
                     "link": entry.get("link", ""),
@@ -157,7 +183,7 @@ def fetch_rss_stories():
                 }
                 all_stories.append(story)
             
-            print(f"✓ Got {len(feed.entries[:20])} stories")
+            print(f"✓ Got {len(feed.entries[:10])} stories")
         except Exception as e:
             print(f"✗ Error: {e}")
     
@@ -326,6 +352,10 @@ def main():
     stories.extend(fetch_crossref_journals())
     
     print(f"\n📊 Total stories fetched: {len(stories)}")
+    
+    stories = [s for s in stories if prefilter(s)]
+
+    print(f"🎯 After keyword filtering: {len(stories)}")
     
     # Enrich each story with Claude
     print("\n🧠 Enriching stories with Claude...")
