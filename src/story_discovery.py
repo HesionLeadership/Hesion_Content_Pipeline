@@ -35,10 +35,8 @@ RSS_FEEDS = {
     "BBC Business": "https://www.bbc.com/news/business/rss.xml",
     
     # Google News workarounds (for sources that killed their RSS)
-    "Reuters Business via Google": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/business&ceid=US:en&hl=en-US&gl=US",
-    "Reuters Tech via Google": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/technology&ceid=US:en&hl=en-US&gl=US",
-    "Reuters Finance via Google": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/markets&ceid=US:en&hl=en-US&gl=US",
-    "WSJ via Google": "https://news.google.com/rss/search?q=when:24h+allinurl:wsj.com&ceid=US:en&hl=en-US&gl=US",
+    "Reuters via Google": "https://news.google.com/rss/search?q=when:72h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US",
+    "WSJ via Google": "https://news.google.com/rss/search?q=when:72h+allinurl:wsj.com&ceid=US:en&hl=en-US&gl=US",
     
     # Tech & Culture
     "TechCrunch": "https://techcrunch.com/feed/",
