@@ -168,7 +168,7 @@ def main():
     
     # Save briefing
     today = datetime.now().strftime("%Y-%m-%d")
-    briefing_path = BRIEFINGS_DIR / f"{today}.md"
+    briefing_path = BRIEFINGS_DIR / f"BRIEFING_{today}.md"
     
     with open(briefing_path, "w", encoding="utf-8") as f:
         f.write(briefing)
