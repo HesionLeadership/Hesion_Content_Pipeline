@@ -33,7 +33,7 @@ RSS_FEEDS = {
     "NYT Business RSS": "https://feeds.nytimes.com/services/xml/rss/nyt/Business.xml",
     "BBC Business": "https://www.bbc.com/news/business/rss.xml",
     "MIT Sloan": "https://mitsloan.mit.edu/feed"
-    "Fast Company": "https://www.fastcompany.com/rss"
+    "Fast Company": "https://www.fastcompany.com/latest/rss"
     "Inc": "https://www.inc.com/rss"
     "SHRM": https://www.shrm.org/rss
     
