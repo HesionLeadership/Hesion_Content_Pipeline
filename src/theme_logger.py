@@ -28,10 +28,11 @@ def load_theme_log():
             combined["entries"].extend(data.get("entries", []))
     return combined
 
-def save_theme_log(log):
-    """Save theme log to disk."""
+def save_theme_log(new_entries):
+    """Save only today's new entries to disk."""
+    today_log = {"entries": new_entries}
     with open(THEME_LOG_PATH, "w", encoding="utf-8") as f:
-        json.dump(log, f, indent=2, ensure_ascii=False)
+        json.dump(today_log, f, indent=2, ensure_ascii=False)
 
 def get_already_logged_files(log):
     """Return set of filenames already in the log."""
@@ -165,8 +166,9 @@ def main():
             log["entries"].append(entry)
             print(f"  ✓ Logged: {entry['title'][:50]} → {entry['themes']}")
     
-    # Save updated log
-    save_theme_log(log)
+    # Only save today's new entries
+    today_entries = [e for e in log["entries"] if e["date"] == datetime.now().strftime("%Y-%m-%d")]
+    save_theme_log(today_entries)
     
     # Print theme summary
     all_themes = {}
