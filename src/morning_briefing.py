@@ -91,6 +91,9 @@ Respond with ONLY the briefing text (no JSON, no backticks). Use this structure:
 
 # Morning Briefing — {datetime.now().strftime('%B %d, %Y')}
 
+## This Week's Themes
+[Analyze ALL the stories below as a group. What themes are recurring? What's dominating the conversation? What's emerging? Write 3-5 sentences synthesizing the patterns you see across sources. Name specific themes like "AI in the Workplace," "Change Management," "Performance Management," etc. If a theme appears in multiple stories, call that out.]
+
 ## Top Story
 [Pick the single most compelling story for Hesion's audience. 2-3 sentences on why it matters for leadership.]
 
