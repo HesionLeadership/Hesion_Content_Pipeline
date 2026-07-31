@@ -116,7 +116,7 @@ Source: {source}
 
 Please provide ONLY a JSON response (no other text, no markdown, no backticks) with these exact fields:
 {{
-  "summary": "1-2 sentence summary of the story",
+  "summary": "1-2 sentence summary of the story. If the title suggests a list (e.g., '4 Hidden Traps...', '8 Practices...', '3 Habits...'), include the actual list items in the summary.",
   "org_psych_angle": "The organizational psychology insight (1-2 sentences). If no clear angle exists, say 'No clear angle.'",
   "leadership_lesson": "What is the leadership lesson here? Frame it as a practical takeaway for CHROs and COOs. If no clear lesson exists, say 'No clear lesson.'",
   "strength_score": <number 1-10 where 10 = perfect org psych fit, 1 = no relevance>,
