@@ -179,7 +179,7 @@ def fetch_rss_stories():
             for entry in feed.entries[:10]:
                 story = {
                     "title": entry.get("title", "No title"),
-                    "link": entry.get("link", ""),
+                    "link": entry.get("link", "").replace("http://feeds.hbr.org", "https://hbr.org"),
                     "summary": entry.get("summary", ""),
                     "source": source_name,
                     "published": entry.get("published", ""),
