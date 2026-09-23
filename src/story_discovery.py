@@ -12,6 +12,7 @@ import feedparser
 import requests
 from anthropic import Anthropic
 from dotenv import load_dotenv
+import trafilatura
 
 # Load environment variables from .env file
 load_dotenv()
@@ -116,7 +117,7 @@ Source: {source}
 
 Please provide ONLY a JSON response (no other text, no markdown, no backticks) with these exact fields:
 {{
-  "summary": "1-2 sentence summary of the story. If the title suggests a list (e.g., '4 Hidden Traps...', '8 Practices...', '3 Habits...'), include the actual list items in the summary.",
+    "summary": "1-2 sentence summary of the story. If the text includes a numbered list, include the list items exactly as they appear. If the input says HEADLINE AND TEASER ONLY, write: 'Full article not retrieved. Teaser says: ...' and do not name any list items, points, or claims.",
   "org_psych_angle": "The organizational psychology insight (1-2 sentences). If no clear angle exists, say 'No clear angle.'",
   "leadership_lesson": "What is the leadership lesson here? Frame it as a practical takeaway for CHROs and COOs. If no clear lesson exists, say 'No clear lesson.'",
   "strength_score": <number 1-10 where 10 = perfect org psych fit, 1 = no relevance>,
@@ -127,6 +128,8 @@ Please provide ONLY a JSON response (no other text, no markdown, no backticks) w
 For research_keywords, suggest 2-3 academic search terms that would find peer-reviewed research supporting or contradicting this story's leadership angle. Use terms an organizational psychologist would search for (e.g., "procedural justice", "psychological safety", "transformational leadership").
 
 Be critical. Only score 6+ if there's a genuine, non-forced organizational psychology connection.
+
+ACCURACY RULE: Summarize ONLY what appears in the text above. Never infer or invent an article's specific points, list items, statistics, quotes, or examples. If the input says HEADLINE AND TEASER ONLY, the strength_score may not exceed 6, and the reasoning must say the article was not read.
 """
 
     try:
@@ -398,6 +401,21 @@ def save_story_markdown(story, enrichment, filepath):
     
     print(f"  ✓ Saved: {filepath.name}")
 
+def fetch_article_text(url, min_chars=800, max_chars=12000):
+    """Download and extract the article body. Returns None if blocked, paywalled, or too short."""
+    if not url or "doi.org" in url:
+        return None  # journal items already carry their abstract
+    try:
+        downloaded = trafilatura.fetch_url(url)
+        if not downloaded:
+            return None
+        text = trafilatura.extract(downloaded, include_comments=False, include_tables=False)
+        if text and len(text) >= min_chars:
+            return text[:max_chars]
+    except Exception as e:
+        print(f"    ⚠ Full-text fetch failed: {e}")
+    return None
+
 # ============================================================================
 # MAIN EXECUTION
 # ============================================================================
@@ -436,7 +454,20 @@ def main():
             continue
         
         # Get Claude enrichment
-        story_text = f"{story['title']}\n\n{story['summary']}"
+        full_text = fetch_article_text(story['link'])
+        if full_text:
+            story_text = f"{story['title']}\n\n{full_text}"
+            story['content_basis'] = "Full article text"
+        elif "doi.org" in (story.get('link') or ""):
+            story_text = f"{story['title']}\n\n{story['summary']}"
+            story['content_basis'] = "Journal abstract"
+        else:
+            story_text = (
+                "HEADLINE AND TEASER ONLY. The full article was not available. "
+                "Do not describe the article's specific points, lists, or claims.\n\n"
+                f"{story['title']}\n\nTeaser: {story['summary']}"
+            )
+            story['content_basis'] = "Headline + teaser only (contents NOT verified)"
         enrichment = get_claude_enrichment(story_text, story['source'])
         
         if enrichment is None:
