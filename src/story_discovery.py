@@ -140,14 +140,17 @@ ACCURACY RULE: Summarize ONLY what appears in the text above. Never infer or inv
     try:
         response = client.messages.create(
             model="claude-sonnet-5",
-            max_tokens=1000,
+            max_tokens=2000,
             messages=[
                 {"role": "user", "content": prompt}
             ]
         )
         
         # Parse JSON from response, ignoring any text or backticks around it
-        response_text = response.content[0].text
+        response_text = "".join(
+            block.text for block in response.content
+            if getattr(block, "type", "") == "text"
+        )
         start = response_text.find("{")
         end = response_text.rfind("}")
         if start == -1 or end == -1:
