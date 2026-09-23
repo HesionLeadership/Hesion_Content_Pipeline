@@ -140,26 +140,19 @@ ACCURACY RULE: Summarize ONLY what appears in the text above. Never infer or inv
     try:
         response = client.messages.create(
             model="claude-sonnet-5",
-            max_tokens=500,
+            max_tokens=1000,
             messages=[
                 {"role": "user", "content": prompt}
             ]
         )
         
-        # Parse JSON from response
+        # Parse JSON from response, ignoring any text or backticks around it
         response_text = response.content[0].text
-        
-        # Strip markdown backticks if Claude wrapped it
-        if response_text.startswith("```json"):
-            response_text = response_text[7:]  # Remove ```json
-        if response_text.startswith("```"):
-            response_text = response_text[3:]  # Remove ```
-        if response_text.endswith("```"):
-            response_text = response_text[:-3]  # Remove trailing ```
-        
-        response_text = response_text.strip()
-        
-        enrichment = json.loads(response_text)
+        start = response_text.find("{")
+        end = response_text.rfind("}")
+        if start == -1 or end == -1:
+            raise json.JSONDecodeError("No JSON object found", response_text, 0)
+        enrichment = json.loads(response_text[start:end + 1])
         return enrichment
     
     except json.JSONDecodeError as e:
