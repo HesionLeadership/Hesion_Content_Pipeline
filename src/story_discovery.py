@@ -6,7 +6,7 @@ Fetches leadership-relevant news, analyzes org psych angle via Claude, scores qu
 import os
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 import feedparser
 import requests
@@ -60,6 +60,8 @@ CROSSREF_EMAIL = os.getenv("CROSSREF_EMAIL")
 # Paths
 STORIES_DIR = Path("reports")
 STORIES_DIR.mkdir(exist_ok=True)
+SEEN_FILE = Path("data/seen_stories.json")
+SEEN_FILE.parent.mkdir(exist_ok=True)
 
 # ============================================================================
 # UTILITY FUNCTIONS
@@ -76,6 +78,21 @@ def story_exists(filename_base):
     """Check if story markdown already exists (avoid duplicates)."""
     filepath = STORIES_DIR / f"{filename_base}.md"
     return filepath.exists()
+
+def load_seen():
+    """Load URLs already scored on previous runs."""
+    if SEEN_FILE.exists():
+        try:
+            return json.loads(SEEN_FILE.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            return {}
+    return {}
+
+def save_seen(seen):
+    """Save seen URLs, keeping only the last 30 days so the file never bloats."""
+    cutoff = (datetime.now() - timedelta(days=30)).strftime("%Y-%m-%d")
+    recent = {k: v for k, v in seen.items() if v >= cutoff}
+    SEEN_FILE.write_text(json.dumps(recent, indent=1), encoding="utf-8")
 
 def prefilter(story):
     keywords = [
@@ -438,6 +455,7 @@ def main():
     
     # Enrich each story with Claude
     print("\n🧠 Enriching stories with Claude...")
+    seen = load_seen()
     saved_count = 0
     skipped_count = 0
     
@@ -448,6 +466,12 @@ def main():
         filename_base = sanitize_filename(story['title'])
         if story_exists(filename_base):
             print(f"    ⊘ Already exists, skipping")
+            skipped_count += 1
+            continue
+
+        seen_key = story.get('link') or story['title']
+        if seen_key in seen:
+            print(f"    ⊘ Already scored on a previous run, skipping")
             skipped_count += 1
             continue
         
@@ -472,6 +496,8 @@ def main():
             print(f"    ✗ Failed to enrich")
             skipped_count += 1
             continue
+
+        seen[seen_key] = datetime.now().strftime("%Y-%m-%d")
         
         # Check strength score
         strength = enrichment.get('strength_score', 0)
@@ -485,6 +511,8 @@ def main():
         save_story_markdown(story, enrichment, filepath)
         saved_count += 1
     
+    save_seen(seen)
+
     # Summary
     print("\n" + "=" * 70)
     print(f"✓ COMPLETE")
