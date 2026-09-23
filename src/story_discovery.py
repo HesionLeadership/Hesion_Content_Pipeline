@@ -79,23 +79,11 @@ def story_exists(filename_base):
 
 def prefilter(story):
     keywords = [
-        "leadership",
-        "manager",
-        "CEO",
-        "culture",
-        "employee",
-        "team",
-        "workplace",
-        "organization",
-        "psychology",
-        "AI",
+        "leadership", "manager", "ceo", "culture", "employee",
+        "team", "workplace", "organization", "psychology", "ai",
     ]
-
-    text = (
-        story["title"] + " " + story["summary"]
-    ).lower()
-
-    return any(k in text for k in keywords)
+    text = f"{story['title']} {story['summary']}".lower()
+    return any(re.search(rf"\b{re.escape(k)}\b", text) for k in keywords)
 
 def get_claude_enrichment(story_text, source):
     """
@@ -288,14 +276,23 @@ def fetch_crossref_journals():
             response = requests.get(url, params=params, timeout=10)
             response.raise_for_status()
             data = response.json()
-            
+
             for item in data.get("message", {}).get("items", []):
+                title = item.get("title", ["No title"])[0] if isinstance(item.get("title"), list) else item.get("title", "No title")
+                journal = item.get("container-title", ["Unknown Journal"])
+                journal = journal[0] if isinstance(journal, list) and journal else "Unknown Journal"
+                abstract = re.sub(r"<[^>]+>", " ", item.get("abstract", "") or "")
+                abstract = re.sub(r"\s+", " ", abstract).strip()
+                summary = f"Published in {journal}. DOI: {item.get('DOI', 'N/A')}."
+                if abstract:
+                    summary += f"\n\nAbstract: {abstract}"
                 story = {
-                    "title": item.get("title", ["No title"])[0] if isinstance(item.get("title"), list) else item.get("title", "No title"),
+                    "title": title,
                     "link": item.get("URL", ""),
-                    "summary": f"Published in {item.get('container-title', ['Unknown Journal'])[0]}. DOI: {item.get('DOI', 'N/A')}",
+                    "summary": summary,
                     "source": "CrossRef Journal",
                     "published": item.get("published-online", {}).get("date-parts", [[]])[0],
+                    "has_abstract": bool(abstract),
                 }
                 all_stories.append(story)
             
@@ -373,7 +370,8 @@ def save_story_markdown(story, enrichment, filepath):
 
 **Source:** {story['source']}  
 **Published:** {story['published']}  
-**URL:** [{story['link']}]({story['link']})
+**URL:** [{story['link']}]({story['link']})  
+**Content basis:** {story.get('content_basis', 'Unknown')}
 
 ## Summary
 {enrichment['summary']}
@@ -460,7 +458,7 @@ def main():
             story['content_basis'] = "Full article text"
         elif "doi.org" in (story.get('link') or ""):
             story_text = f"{story['title']}\n\n{story['summary']}"
-            story['content_basis'] = "Journal abstract"
+            story['content_basis'] = "Journal abstract" if story.get('has_abstract') else "Journal title only (no abstract available)"
         else:
             story_text = (
                 "HEADLINE AND TEASER ONLY. The full article was not available. "
