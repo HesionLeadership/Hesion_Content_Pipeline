@@ -116,12 +116,21 @@ Respond with ONLY the briefing text (no JSON, no backticks). Use this structure:
     try:
         response = client.messages.create(
             model="claude-sonnet-5",
-            max_tokens=2000,
+            max_tokens=4000,
             messages=[{"role": "user", "content": prompt}]
         )
-        return response.content[0].text
+        text = "".join(
+            block.text for block in response.content
+            if getattr(block, "type", "") == "text"
+        ).strip()
+        if not text:
+            print(f"⚠️ Empty response from Claude. stop_reason={response.stop_reason}", flush=True)
+            return None
+        return text
     except Exception as e:
-        print(f"⚠️ Claude API error: {e}")
+        import traceback
+        print(f"⚠️ Claude API error: {type(e).__name__}: {e}", flush=True)
+        traceback.print_exc()
         return None
 
 def main():
