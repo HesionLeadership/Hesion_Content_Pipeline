@@ -1,0 +1,89 @@
+# A remote employee refused 160 webcam photos a day. Her employer fired her
+
+**Source:** Fast Company  
+**Published:** 2026-11-13T21:15:27  
+**URL:** [https://www.fastcompany.com/91635146/a-remote-employee-refused-160-webcam-photos-a-day-her-employer-fired-her](https://www.fastcompany.com/91635146/a-remote-employee-refused-160-webcam-photos-a-day-her-employer-fired-her)  
+**Content basis:** Headline + teaser only (contents NOT verified)
+
+## Summary
+Full article not retrieved. Teaser says: a remote employee was fired after refusing to comply with an AI-powered webcam monitoring tool that would take roughly 160 photos of her face per day.
+
+## Organizational Psychology Angle
+No clear angle.
+
+## Leadership Lesson
+No clear lesson.
+
+## Strength Score
+**6/10** — The article was not read; only the headline and teaser were available. Based on the teaser alone, the story touches on workplace surveillance, stress, and accommodation issues, which are relevant to org psych, but without the full article, specific claims and lessons cannot be verified.
+
+## Supporting Research
+No matching research found.
+
+## Original Story Summary
+<p class="wp-block-paragraph">Across the workforce, employer surveillance is growing <a href="https://www.usnews.com/news/business/articles/2026-08-20/as-workplace-surveillance-grows-experts-say-its-good-to-know-the-ways-your-employer-is-watching" rel="noreferrer noopener" target="_blank">increasingly</a> common, even though it is widely disliked by employees. According to the <a href="https://www.apa.org/topics/healthy-workplaces/employee-electronic-monitoring" rel="noopener" target="_blank">American Psychological Association</a>, employee monitoring increases workers’ stress and decreases their reported mental health. A Canadian <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11300163/" rel="noreferrer noopener" target="_blank">study</a> found that surveillance in the workplace makes employees feel more pressured, less satisfied with their job, and like their privacy is being violated.</p>
+
+
+
+<p class="wp-block-paragraph"><a href="https://www.inc.com/artificial-intelligence">AI</a>&nbsp;may now make this problem worse. These negative outcomes are the consequences of more traditional surveillance methods like keyboard tracking and email monitoring. Considering that, what would the psychological impact be of learning that an employer will now use <a href="https://www.fastcompany.com/section/artificial-intelligence" title="AI">AI</a> to take 160 photos of an employee’s face every day?</p>
+
+
+
+<p class="wp-block-paragraph">A recent New Jersey lawsuit alleges that an employer was trying to do just that, and fired its employee when she refused to agree to this monitoring. The plaintiff in this case, Glennis Von Sander-Timinski, worked for Sutherland Healthcare Solutions, which provides healthcare services outsourcing. The suit states that she had been working at home with no issues since 2018, and had achieved positive performance reviews during that time. </p>
+
+
+
+<p class="wp-block-paragraph">However, everything changed in August when her company told her that they would be using a new tool: Sentinel AI. This software would take a photo of her through her webcam about every three minutes over the course of the day, for a total of about 160 photos per day.</p>
+
+
+
+<p class="wp-block-paragraph">Von Sander-Timinski objected to this with the worry that it would increase her stress level, and therefore trigger her underlying lupus. According to the Lupus Foundation of America, stress can be a significant trigger of lupus flares, which can result in fevers, rashes, and sores. Her doctor wrote a note to her employer arguing that the facial AI monitoring should be changed to be “intermittent or less frequently, as it is causing worsening of anxiety and flaring her systemic lupus erythematosus.”</p>
+
+
+
+<p class="wp-block-paragraph">However, Sutherland Healthcare was not willing to compromise and gave her an ultimatum. She could agree to the AI monitoring, come into the office every day, or be fired. Returning to the office was not feasible as she lives in Atlantic County, on the opposite side of New Jersey from her employer’s office in Clinton. The lawsuit estimated that her daily commute would have been a total of six hours long.</p>
+
+
+
+<p class="wp-block-paragraph">Therefore, on September 8, Von Sander-Timinski was fired. She had worked at Sutherland for over a decade, since it acquired the company she previously worked for in 2013.&nbsp;</p>
+
+
+
+<p class="wp-block-paragraph">“Our client’s employer failed to engage in the interactive process required under the New Jersey Law Against Discrimination and denied a reasonable accommodation that would have allowed Ms. Von Sander-Timinski to continue performing her job duties successfully, as she had done for years prior to the implementation of this monitoring system,” said Von Sander-Timinski’s lawyers in a statement to&nbsp;<a href="https://www.app.com/story/news/business/2026/10/05/clifton-nj-bill-ai-monitor-employees-lawsuit/92056487007/?utm_campaign=trueanthem&amp;utm_medium=social&amp;utm_source=facebook" rel="noopener" target="_blank"><em>The Bergen Record</em></a><em>.</em></p>
+
+
+
+<p class="wp-block-paragraph">While many states currently do not have any laws against employer surveillance, some states, such as New York, Connecticut, Delaware, and California, are beginning to set boundaries for companies. Earlier this year, Maine also passed a law that bans surveillance within an employee’s home unless it is <a href="https://www.fisherphillips.com/en/insights/insights/maine-sets-new-restrictions-on-workplace-monitoring-and-surveillance" rel="noreferrer noopener" target="_blank">deemed</a> necessary.</p>
+
+
+
+<p class="wp-block-paragraph">New Jersey is similarly looking to pass a&nbsp;<a href="https://pub.njleg.state.nj.us/Bills/2026/S4500/4075_S1.PDF" rel="noopener" target="_blank">law</a>&nbsp;that would regulate AI electronic monitoring tools in the workplace. It would mandate that AI-powered surveillance would need to be approved by an independent auditor and would limit where and when monitoring can be active.&nbsp;</p>
+
+
+
+<p class="wp-block-paragraph">While this bill is still under discussion, it could potentially help employees like Von Sander-Timinski avoid similar situations in the future. For now, in the vast majority of states, if an employer decides to implement facial monitoring, employees will have little option but to smile for the camera.&nbsp;</p>
+
+
+
+<p class="wp-block-paragraph"><em>Get </em>Inc.<em>’s free CPG newsletter, </em><a href="https://packagedgoods.beehiiv.com/" rel="noreferrer noopener" target="_blank">Packaged Goods</a><em>, for the latest on the founders, investors, and trends reshaping consumer brands.</em></p>
+
+
+
+<p class="wp-block-paragraph"><em>—By Chloe Rosenberg, Freelance Writer</em></p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity" />
+
+
+
+<p class="wp-block-paragraph"><em>This article</em> <a href="https://www.inc.com/chloe-rosenberg/a-remote-employee-refused-160-webcam-photos-a-day-her-employer-fired-her/91415963" rel="noreferrer noopener" target="_blank"><em>originally appeared</em></a> <em>on</em> Fast Company<em>’s sister website, Inc.com.</em> </p>
+
+
+
+<p class="wp-block-paragraph">Inc. <em>is the voice of the American entrepreneur. We inspire, inform, and document the most fascinating people in business: the risk-takers, the innovators, and the ultra-driven go-getters that represent the most dynamic force in the American economy.</em></p>
+
+---
+
+**Status:** Pending review  
+**Discovered:** 2026-11-14 14:44:19
